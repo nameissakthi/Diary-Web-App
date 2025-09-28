@@ -35,15 +35,15 @@ const Login = () => {
               </i>
             </p>
             <div className="flex justify-between p-4 gap-4 mt-4">
-              <p className="w-full min-h-30 bg-green-400 flex justify-center items-center gap-2 font-extrabold text-4xl text-white">
+              <p className="w-full min-h-30 bg-pink-400 flex justify-center items-center gap-2 font-extrabold text-4xl text-white">
                 <GoShieldLock />
                 Secure
               </p>
-              <p className="w-full min-h-30 bg-green-400 flex justify-center items-center gap-2 font-extrabold text-4xl text-white">
+              <p className="w-full min-h-30 bg-pink-400 flex justify-center items-center gap-2 font-extrabold text-4xl text-white">
                 <BsSpeedometer />
                 Fast
               </p>
-              <p className="w-full min-h-30 bg-green-400 flex justify-center items-center gap-2 font-extrabold text-4xl text-white">
+              <p className="w-full min-h-30 bg-pink-400 flex justify-center items-center gap-2 font-extrabold text-4xl text-white">
                 <MdSupervisedUserCircle />
                 Reliable
               </p>
@@ -67,16 +67,16 @@ const Login = () => {
               </div>
 
               <div className="mt-5 flex gap-2 px-5">
-                <p className="px-2 py-1 border-2 w-fit rounded-2xl text-gray-400 font-bold">
+                <p className="px-2 py-1 border-2 w-fit rounded-2xl text-pink-400 font-bold">
                   #happymoments
                 </p>
-                <p className="px-2 py-1 border-2 w-fit rounded-2xl text-gray-400 font-bold">
+                <p className="px-2 py-1 border-2 w-fit rounded-2xl text-pink-400 font-bold">
                   #journey
                 </p>
-                <p className="px-2 py-1 border-2 w-fit rounded-2xl text-gray-400 font-bold">
+                <p className="px-2 py-1 border-2 w-fit rounded-2xl text-pink-400 font-bold">
                   #toughts
                 </p>
-                <p className="px-2 py-1 border-2 w-fit rounded-2xl text-gray-400 font-bold">
+                <p className="px-2 py-1 border-2 w-fit rounded-2xl text-pink-400 font-bold">
                   #life
                 </p>
               </div>
@@ -85,18 +85,30 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="px-[10%] mt-25 h-[50%]">
-        <div className="flex flex-col">
-          <div className="border w-fit py-8 px-24 rounded-4xl text-4xl shadow-inner shadow-slate-400 font-bold">
-            <p>Access</p>
+      <div className="px-[10%] flex justify-between my-5 gap-5">
+        <div className="flex items-center w-[40%]">
+          <p className="text-4xl font-mono flex flex-col w-full">
+            <span className="text-start">Access from anywhere</span>
+            <span className="text-end">with high security</span>
+          </p>
+        </div>
+        <div className="">
+          <img
+            src={assets.data_backup}
+            alt="Cloud"
+            className="w-xl rounded-4xl"
+          />
+        </div>
+      </div>
+
+      <div className="flex justify-center my-10">
+        <div className="w-[90%] p-20 bg-pink-300 rounded-2xl shadow-2xl shadow-pink-100">
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-5xl font-bold text-white">Create your Account Now!!</p>
+            <SignedOut>
+              <SignInButton className="px-[10%] py-3 bg-amber-300 text-black text-xl rounded-2xl scale-95 hover:bg-blue-500 hover:text-white hover:scale-100 transition-all duration-150 font-extrabold" />
+            </SignedOut>
           </div>
-          <div className="border w-fit py-8 px-24 rounded-4xl text-4xl shadow-inner shadow-slate-400 font-bold">
-            <p>from</p>
-          </div>
-          <div className="border w-fit py-8 px-24 rounded-4xl text-4xl shadow-inner shadow-slate-400 font-bold">
-            <p>anywhere</p>
-          </div>
-          <img src={assets.globe} alt="globe" className="absolute -z-50 opacity-10 h-[50%] self-center" />
         </div>
       </div>
     </div>
