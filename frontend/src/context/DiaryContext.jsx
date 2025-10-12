@@ -9,10 +9,11 @@ const DiaryContextProvider = (props) => {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    if(user.isSignedIn)
-      navigate("/")
-    else
+    console.log(user)
+    if(!user.isSignedIn)
       navigate("/login")
+    else
+      navigate("/")
   }, [user.isSignedIn])
 
   const value = { user, navigate };
