@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { DiaryContext } from "./DiaryContext";
 import { useUser } from "@clerk/clerk-react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const DiaryContextProvider = (props) => {
@@ -9,11 +9,8 @@ const DiaryContextProvider = (props) => {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    console.log(user)
     if(!user.isSignedIn)
       navigate("/login")
-    else
-      navigate("/")
   }, [user.isSignedIn])
 
   const value = { user, navigate };

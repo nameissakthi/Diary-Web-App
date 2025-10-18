@@ -15,62 +15,34 @@ import { SignedIn, UserButton } from "@clerk/clerk-react";
 
 import { Link } from "react-router-dom";
 
-
-  class DateTime {
-    constructor() {
-      this.date = new Date();
-    }
-
-    findDay() {
-      const days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      return days[this.date.getDay()];
-    }
-
-    findTime() {
-      return this.date.getHours() + ":" + this.date.getMinutes();
-    }
-
-    findDate() {
-      return (
-        this.date.getDate() +
-        " " +
-        (this.date.getMonth() + 1) +
-        " " +
-        this.date.getFullYear()
-      );
-    }
-  }
-
+import DateTime from "../func/DateTime.ts";
+import { toast } from "react-toastify";
 
 const NewRecord = () => {
-
   const { user } = useContext(DiaryContext);
 
   const [data, setData] = useState({
-    content : "",
-    day : "",
-    date : "",
-    time : ""
+    title: "",
+    content: "",
+    day: "",
+    date: "",
+    time: "",
   });
 
   useEffect(() => {
     console.log(data);
   }, [data]);
 
-
   const save = () => {
-    const dateTime = new DateTime()
-    setData({...data, day : dateTime.findDay(), date : dateTime.findDate(), time : dateTime.findTime()})
-  }
-
+    const dateTime = new DateTime();
+    setData({
+      ...data,
+      day: dateTime.findDay(),
+      date: dateTime.findDate(),
+      time: dateTime.findTime(),
+    });
+    toast.success("Memory Saved Successfully")
+  };
 
   return (
     <div className="mb-10">
@@ -104,9 +76,17 @@ const NewRecord = () => {
       <div className="px-[5%] mt-10">
         <div>
           <h1 className="text-2xl font-bold mb-5">New Diary Record</h1>
+          <input
+            type="text"
+            className="border-2 rounded-xl w-full p-2 mb-4"
+            placeholder="Title"
+            value={data.title}
+            onChange={(e) => setData({ ...data, title: e.target.value })}
+          />
           <MDXEditor
             markdown={data.content}
-            onChange={(e) => setData({...data, content : e})}
+            placeholder="Write your day......."
+            onChange={(e) => setData({ ...data, content: e })}
             plugins={[
               toolbarPlugin({
                 toolbarClassName: "my-classname",
@@ -122,7 +102,12 @@ const NewRecord = () => {
           />
         </div>
         <div className="flex justify-center mt-4">
-          <button onClick={save} className="text-xl px-6 py-2 rounded-xl bg-blue-500 text-white font-bold">Save</button>
+          <button
+            onClick={save}
+            className="text-xl px-6 py-2 rounded-xl bg-blue-500 text-white font-bold"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
