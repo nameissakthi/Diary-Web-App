@@ -1,19 +1,14 @@
 import { DiaryContext } from "./DiaryContext";
-import { useUser } from "@clerk/clerk-react";
-import { useEffect } from "react";
+import { useUser, useClerk } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 
 const DiaryContextProvider = (props) => {
   
   const user = useUser()
+  const clerk = useClerk()
   const navigate = useNavigate()
 
-  useEffect(()=>{
-    if(!user.isSignedIn)
-      navigate("/login")
-  }, [user.isSignedIn])
-
-  const value = { user, navigate };
+  const value = { user, navigate, clerk };
 
   return (
     <DiaryContext.Provider value={value}>{props.children}</DiaryContext.Provider>

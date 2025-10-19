@@ -20,23 +20,12 @@ const Home = () => {
             <div className="text-xl font-bold px-4 py-2 bg-yellow-400 rounded-xl">
               <Link to={"/new-record"}>New Record</Link>
             </div>
-            <div className="flex items-center gap-2">
+            <Link className="flex items-center gap-2 cursor-pointer" to={"/profile"}>
               <p className="font-bold text-xl">
                 {user.user != undefined && user.user.firstName}
               </p>
-              <SignedIn>
-                <UserButton
-                  appearance={{
-                    elements: {
-                      userButtonAvatarBox: {
-                        width: "40px",
-                        height: "40px",
-                      },
-                    },
-                  }}
-                />
-              </SignedIn>
-            </div>
+              <img src={user.user.imageUrl} alt="Profile" className="w-10 rounded-full" />
+            </Link>
           </div>
         }
       />

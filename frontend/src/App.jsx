@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { DiaryContext } from "./context/DiaryContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import assets from "./assets/assests";
+import Profile from "./pages/Profile";
 
 export default function App() {
   const { user } = useContext(DiaryContext);
@@ -34,6 +35,7 @@ export default function App() {
       />
       <Routes>
         <Route element={<Home />} index />
+        <Route element={<Profile />} path="/profile" />
         <Route element={<Login />} path="/login" />
         <Route element={<NewRecord />} path="/new-record" />
       </Routes>
