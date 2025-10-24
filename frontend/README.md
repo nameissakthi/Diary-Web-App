@@ -1,12 +1,35 @@
-# React + Vite
+# My Diary
+A simple diary web app build using react js, tailwind css, clerk auth.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Navigate to the project directory
+```bash
+    cd Diary-Web-App
+```
 
-Currently, two official plugins are available:
+### To run the frontend
+Before running the frontend check whether the listed `.env` variables are defined
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Step 1: Navigate to the frontend
+```bash
+    cd Diary-Web-App/frontend
+```
 
-## Expanding the ESLint configuration
+#### Step 2: Need to install the node_modules
+```bash
+    npm install
+````
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+#### Step 3: Run the front using the below command
+```bash
+    npm run dev
+```
+
+### .env file
+```bash
+    VITE_CLERK_PUBLISHABLE_KEY=
+```
+
+
+### Don't forget to star the repository and share your feedback!✨
+
+### Author : [Sakthivel](https://github.com/nameissakthi)
