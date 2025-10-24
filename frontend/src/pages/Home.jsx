@@ -24,7 +24,7 @@ const Home = () => {
               <p className="font-bold text-xl">
                 {user.user != undefined && user.user.firstName}
               </p>
-              <img src={user.user.imageUrl} alt="Profile" className="w-10 rounded-full" />
+              <img src={user.user.imageUrl} alt="Profile" className="w-10 h-10 rounded-full" />
             </Link>
           </div>
         }

@@ -41,7 +41,7 @@ const NewRecord = () => {
       date: dateTime.findDate(),
       time: dateTime.findTime(),
     });
-    toast.success("Memory Saved Successfully")
+    toast.success("Memory Saved Successfully");
   };
 
   return (
@@ -53,21 +53,19 @@ const NewRecord = () => {
               <Link to={"/"}>Home</Link>
             </div>
             <div className="flex items-center gap-2">
-              <p className="font-bold text-xl">
-                {user.user != undefined && user.user.firstName}
-              </p>
-              <SignedIn>
-                <UserButton
-                  appearance={{
-                    elements: {
-                      userButtonAvatarBox: {
-                        width: "40px",
-                        height: "40px",
-                      },
-                    },
-                  }}
+              <Link
+                className="flex items-center gap-2 cursor-pointer"
+                to={"/profile"}
+              >
+                <p className="font-bold text-xl">
+                  {user.user != undefined && user.user.firstName}
+                </p>
+                <img
+                  src={user.user.imageUrl}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full"
                 />
-              </SignedIn>
+              </Link>
             </div>
           </div>
         }

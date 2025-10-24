@@ -9,15 +9,13 @@ import { DiaryContext } from "./context/DiaryContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import assets from "./assets/assests";
 import Profile from "./pages/Profile";
+import Loading from "./components/Loading";
 
 export default function App() {
   const { user } = useContext(DiaryContext);
 
   return !user.isLoaded ? (
-    <div className="flex flex-col justify-center items-center h-[100vh]">
-      <img src={assets.loading} alt="Loading" />
-      <p className="text-2xl">Loading...</p>
-    </div>
+    <Loading className={"h-screen"} />
   ) : (
     <div className="app">
       <ToastContainer
