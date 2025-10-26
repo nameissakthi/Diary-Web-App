@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { MDXEditor } from "@mdxeditor/editor";
 import {
@@ -10,8 +10,6 @@ import {
 import "@mdxeditor/editor/style.css";
 import Header from "../components/Header";
 import { DiaryContext } from "../context/DiaryContext";
-
-import { SignedIn, UserButton } from "@clerk/clerk-react";
 
 import { Link } from "react-router-dom";
 
@@ -58,10 +56,10 @@ const NewRecord = () => {
                 to={"/profile"}
               >
                 <p className="font-bold text-xl">
-                  {user.user != undefined && user.user.firstName}
+                  {user.user?.firstName || "User"}
                 </p>
                 <img
-                  src={user.user.imageUrl}
+                  src={user.user?.imageUrl}
                   alt="Profile"
                   className="w-10 h-10 rounded-full"
                 />

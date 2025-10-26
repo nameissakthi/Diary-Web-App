@@ -7,7 +7,6 @@ import NewRecord from "./pages/NewRecord";
 import { useContext } from "react";
 import { DiaryContext } from "./context/DiaryContext";
 import { Bounce, ToastContainer } from "react-toastify";
-import assets from "./assets/assests";
 import Profile from "./pages/Profile";
 import Loading from "./components/Loading";
 

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { SignedIn, UserButton } from "@clerk/clerk-react";
 import Header from "../components/Header";
 import { DiaryContext } from "../context/DiaryContext";
 
@@ -22,9 +21,9 @@ const Home = () => {
             </div>
             <Link className="flex items-center gap-2 cursor-pointer" to={"/profile"}>
               <p className="font-bold text-xl">
-                {user.user != undefined && user.user.firstName}
+                {user.user?.firstName || "User"}
               </p>
-              <img src={user.user.imageUrl} alt="Profile" className="w-10 h-10 rounded-full" />
+              <img src={user.user?.imageUrl} alt="Profile" className="w-10 h-10 rounded-full" />
             </Link>
           </div>
         }
@@ -36,7 +35,7 @@ const Home = () => {
             <p className="font-bold text-6xl">
               Hello{" "}
               <span className="text-pink-600">
-                {user.user != undefined ? user.user.firstName : "There"}
+                {user.user?.firstName || "There"}
               </span>
             </p>
             <p className="text-xl">

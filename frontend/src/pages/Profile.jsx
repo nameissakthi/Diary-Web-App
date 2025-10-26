@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Header from "../components/Header";
 import { DiaryContext } from "../context/DiaryContext";
 import { Link } from "react-router-dom";
@@ -11,16 +11,16 @@ import { toast } from "react-toastify";
 const Profile = () => {
   const { user } = useContext(DiaryContext);
 
-  const [openPopup, setOpenPopup] = useState(false);
+  const [openPopup, setOpenPopup] = useState({ open: false, poptitle: "" });
 
-  const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
   const [profilePic, setProfilePic] = useState(null);
 
-  const [fullName, setFullName] = useState(user.user.fullName)
+  const [fullName, setFullName] = useState(user.user?.fullName || "");
 
   const handleProfileEdit = () => {
-    setOpenPopup(true);
+    setOpenPopup({ open: true, poptitle: "Edit Profile" });
   };
 
   const handleFileChange = (e) => {
@@ -36,7 +36,7 @@ const Profile = () => {
       return;
     }
 
-    setUploading(true);
+    setLoading(true);
 
     try {
       await user.user.setProfileImage({ file: profilePic });
@@ -45,8 +45,8 @@ const Profile = () => {
       console.log("Failed to upload image : ", error);
       toast.error("Failed to upload image!!!");
     } finally {
-      setUploading(false);
-      setOpenPopup(false);
+      setLoading(false);
+      setOpenPopup({ open: false, poptitle: "" });
       setPreview(null);
       setProfilePic(null);
     }
@@ -54,7 +54,7 @@ const Profile = () => {
 
   const ProfileEditContent = () => (
     <div>
-      {uploading ? (
+      {loading ? (
         <Loading className={"w-full"} />
       ) : (
         <div className="flex flex-col gap-4 items-center">
@@ -85,14 +85,68 @@ const Profile = () => {
     </div>
   );
 
-  console.log(user)
+  const handleDeleteAccount = () => {
+    setOpenPopup({ open: true, poptitle: "Delete Profile" });
+  };
+
+  const handleDeleteProfile = async (deleteProfile) => {
+    setLoading(true);
+
+    try {
+      if (deleteProfile) {
+        await user.user.delete();
+        toast.success("Account Deleted Successfully");
+      }
+    } catch (error) {
+      console.log("Failed to delete Profile: ", error);
+      toast.error("Failed to delete Profile!!!");
+    } finally {
+      setOpenPopup({ open: false, poptitle: "" });
+      setLoading(false)
+    }
+  };
+
+  const ProfileDleteContent = () => (
+    <div>
+      {loading ? (
+        <Loading className={"w-full"} />
+      ) : (
+        <div>
+          <p className="font-bold text-2xl text-center text-gray-800">
+            Are you sure you want to delete your profile?
+          </p>
+
+          <div className="flex mt-10 justify-center gap-10">
+            <button
+              className="bg-red-600 px-4 py-2 text-white font-semibold"
+              onClick={() => handleDeleteProfile(true)}
+            >
+              I'm Sure 😢
+            </button>
+            <button
+              className="bg-pink-600 px-4 py-2 text-white font-semibold"
+              onClick={() => handleDeleteProfile(false)}
+            >
+              No Accidently Clicked😅
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div>
       <Popup
-        title={"Edit Profile"}
-        children={<ProfileEditContent />}
-        open={openPopup}
+        title={openPopup.poptitle}
+        children={
+          openPopup.poptitle == "Edit Profile" ? (
+            <ProfileEditContent />
+          ) : (
+            <ProfileDleteContent />
+          )
+        }
+        open={openPopup.open}
         setOpen={setOpenPopup}
       />
       <Header
@@ -109,10 +163,10 @@ const Profile = () => {
               to={"/profile"}
             >
               <p className="font-bold text-xl">
-                {user.user != undefined && user.user.firstName}
+                {user.user?.firstName || "User"}
               </p>
               <img
-                src={user.user.imageUrl}
+                src={user.user?.imageUrl}
                 alt="Profile"
                 className="w-10 h-10 rounded-full"
               />
@@ -126,7 +180,7 @@ const Profile = () => {
           <div className="flex flex-col w-fit">
             <div className="border-2 rounded-full p-1 border-pink-600">
               <img
-                src={user.user.imageUrl}
+                src={user.user?.imageUrl}
                 alt="Profile"
                 className="w-72 h-72 rounded-full"
               />
@@ -143,22 +197,46 @@ const Profile = () => {
           <div className="flex-1 flex flex-col gap-4 p-5 ml-10">
             <label htmlFor="fullName" className="flex flex-col gap-1">
               <span className="text-2xl font-semibold">Full Name</span>
-              <input type="text" value={fullName} onChange={e=>setFullName(e.target.value)} disabled className="p-2 border-2 rounded-sm" />
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                disabled
+                className="p-2 border-2 rounded-sm"
+              />
             </label>
             <label htmlFor="email" className="flex flex-col gap-1">
               <span className="text-2xl font-semibold">Email</span>
-              <input type="text" value={user.user.emailAddresses[0].emailAddress} disabled className="p-2 border-2 rounded-sm" />
+              <input
+                type="text"
+                value={user.user?.emailAddresses?.[0]?.emailAddress || ""}
+                disabled
+                className="p-2 border-2 rounded-sm"
+              />
             </label>
-            <div className="flex justify-end hidden">
-              <button className="px-6 py-2 bg-blue-600 text-white">Update</button>
+            <div className="flex justify-end">
+              <button className="px-6 py-2 bg-blue-600 text-white">
+                Update
+              </button>
             </div>
           </div>
         </div>
 
-        <div className="px-[10%] mt-10 hidden">
+        <div className="px-[10%] mt-10">
           <div className="p-10 rounded-2xl w-full bg-red-600">
-            <p className="text-3xl text-white font-semibold mb-5">Danger Zone</p>
-            <p className="text-xl text-white">Click <a href="http://" target="_blank" rel="noopener noreferrer" className="text-blue-700 underline">here</a> to delete your profile</p>
+            <p className="text-3xl text-white font-semibold mb-5">
+              Danger Zone
+            </p>
+            <p className="text-xl text-white">
+              Click{" "}
+              <span
+                className="text-blue-700 underline font-semibold"
+                onClick={handleDeleteAccount}
+              >
+                here
+              </span>{" "}
+              to delete your profile
+            </p>
           </div>
         </div>
       </div>

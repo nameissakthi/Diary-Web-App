@@ -16,15 +16,6 @@ const Login = () => {
 
   const { user, navigate } = useContext(DiaryContext)
 
-    useEffect(()=>{
-      if(!user.isSignedIn){
-        navigate("/login")
-      }
-      else{
-        navigate("/")
-      }
-    }, [user.isSignedIn])
-
   return (
     <div>
       <Header

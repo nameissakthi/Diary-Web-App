@@ -4,7 +4,7 @@ const Popup = ({title, children, open, setOpen}) => {
 
   return (
     <div
-      className={`absolute bg-slate-200 min-w-[50%] min-h-[50%] top-[20%] left-[25%] p-5 opacity-95 z-50 rounded-2xl ${
+      className={`absolute bg-slate-200 min-w-[50%] min-h-[30%] top-[20%] left-[25%] p-5 opacity-95 z-50 rounded-2xl ${
         open ? "block" : "hidden"
       }`}
     >
