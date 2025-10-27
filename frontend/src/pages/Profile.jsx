@@ -151,12 +151,21 @@ const Profile = () => {
     setOpenPopup({ open : true, poptitle : "Logout" })
   }
 
-  const handleLogoutProfile(logoutProfile){
+  const handleLogoutProfile = async (logoutProfile) => {
     setLoading(true)
     const { signOut } = clerk;
     
-    try{
-      await signOut()
+    try {
+      if(logoutProfile) {
+        await signOut()
+        toast.success("Logout Successfull!!!")
+      }
+    }catch(error) {
+      console.log("Failed to logout: ", error)
+      toast.error("Failed to logout!!!")
+    }finally{
+      setLoading(false)
+      setOpenPopup({ open : false, poptitle : "" })
     }
   }
 
@@ -267,7 +276,7 @@ const Profile = () => {
               />
             </label>
             <div className="flex justify-between">
-              <button className="px-6 py-2 bg-red-600 text-white">
+              <button className="px-6 py-2 bg-red-600 text-white" onClick={handleLogout}>
                 Logout
               </button>
               <button className="px-6 py-2 bg-blue-600 text-white">

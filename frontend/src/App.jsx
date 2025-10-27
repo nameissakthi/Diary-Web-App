@@ -9,6 +9,7 @@ import { DiaryContext } from "./context/DiaryContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import Profile from "./pages/Profile";
 import Loading from "./components/Loading";
+import Record from "./pages/Record";
 
 export default function App() {
   const { user } = useContext(DiaryContext);
@@ -35,6 +36,7 @@ export default function App() {
         <Route element={<Profile />} path="/profile" />
         <Route element={<Login />} path="/login" />
         <Route element={<NewRecord />} path="/new-record" />
+        <Route element={<Record />} path="/record/:id" />
       </Routes>
       <Footer />
     </div>

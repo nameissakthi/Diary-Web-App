@@ -1,7 +1,7 @@
 import React from "react";
 import assets from "../assets/assests";
 
-const Header = (props) => {
+const Header = ({children}) => {
   return (
     <header className="flex justify-between items-center p-2 md:px-6 md:py-3 m-4 rounded-2xl bg-pink-400 text-white shadow-2xl shadow-pink-300 sticky top-3.5 opacity-[98%] z-40">
       <div>
@@ -10,7 +10,7 @@ const Header = (props) => {
           <p className="text-base md:text-3xl font-bold">My Diary</p>
         </div>
       </div>
-      <div>{props.children}</div>
+      <div>{children}</div>
     </header>
   );
 };

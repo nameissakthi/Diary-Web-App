@@ -14,7 +14,7 @@ const DiaryContextProvider = (props) => {
       const currentPath = location.pathname;
       const isLoginPage = currentPath === "/login";
       const protectedRoutes = ["/", "/profile", "/new-record"];
-      const isProtectedRoute = protectedRoutes.includes(currentPath);
+      const isProtectedRoute = protectedRoutes.includes(currentPath) || currentPath.startsWith("/record/");
 
       if (user.isSignedIn) {
         // If user is signed in and on login page, redirect to home
