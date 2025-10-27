@@ -139,7 +139,7 @@ const Profile = () => {
               className="bg-pink-600 px-4 py-2 text-white font-semibold"
               onClick={() => handleDeleteProfile(false)}
             >
-              No Accidently Clicked😅
+              No Accidently Clicked 😅
             </button>
           </div>
         </div>
@@ -147,16 +147,56 @@ const Profile = () => {
     </div>
   );
 
+  const handleLogout = () => {
+    setOpenPopup({ open : true, poptitle : "Logout" })
+  }
+
+  const handleLogoutProfile(logoutProfile){
+    setLoading(true)
+    const { signOut } = clerk;
+    
+    try{
+      await signOut()
+    }
+  }
+
+  const ProfileLogoutContent = () => (
+    <div>
+      {
+        loading ? <Loading /> :
+        <div>
+          <p className="font-bold text-2xl text-center text-gray-800">
+            Are you sure you want to logout your profile?
+          </p>
+
+          <div className="flex mt-10 justify-center gap-10">
+            <button
+              className="bg-red-600 px-4 py-2 text-white font-semibold"
+              onClick={() => handleLogoutProfile(true)}
+            >
+              I'm Sure 👍
+            </button>
+            <button
+              className="bg-pink-600 px-4 py-2 text-white font-semibold"
+              onClick={() => handleLogoutProfile(false)}
+            >
+              No Accidently Clicked 😅
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  )
+
   return (
     <div>
       <Popup
         title={openPopup.poptitle}
         children={
-          openPopup.poptitle == "Edit Profile" ? (
-            <ProfileEditContent />
-          ) : (
-            <ProfileDleteContent />
-          )
+          openPopup.poptitle == "Edit Profile" ? 
+          <ProfileEditContent /> :
+          openPopup.poptitle == "Delete Profile" ?
+          <ProfileDleteContent /> : <ProfileLogoutContent />
         }
         open={openPopup.open}
         setOpen={setOpenPopup}
@@ -226,7 +266,10 @@ const Profile = () => {
                 className="p-2 border-2 rounded-sm"
               />
             </label>
-            <div className="flex justify-end">
+            <div className="flex justify-between">
+              <button className="px-6 py-2 bg-red-600 text-white">
+                Logout
+              </button>
               <button className="px-6 py-2 bg-blue-600 text-white">
                 Update
               </button>
@@ -242,7 +285,7 @@ const Profile = () => {
             <p className="text-xl text-white">
               Click{" "}
               <span
-                className="text-blue-700 underline font-semibold"
+                className="text-blue-700 underline font-semibold cursor-pointer"
                 onClick={handleDeleteAccount}
               >
                 here
