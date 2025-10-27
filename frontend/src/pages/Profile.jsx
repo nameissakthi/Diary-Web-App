@@ -9,7 +9,7 @@ import Loading from "../components/Loading";
 import { toast } from "react-toastify";
 
 const Profile = () => {
-  const { user } = useContext(DiaryContext);
+  const { user, navigate, clerk } = useContext(DiaryContext);
 
   const [openPopup, setOpenPopup] = useState({ open: false, poptitle: "" });
 
@@ -91,10 +91,22 @@ const Profile = () => {
 
   const handleDeleteProfile = async (deleteProfile) => {
     setLoading(true);
+    const { signOut } = clerk;
 
     try {
       if (deleteProfile) {
+        const sessionTime = Date.now() - new Date(user.user?.lastSignInAt).getTime();
+        if (sessionTime > 5 * 60 * 1000) {
+          toast.info(
+            "Please sign in again to confirm account deletion for security purposes."
+          );
+          await signOut()
+          setOpenPopup({ open: false, poptitle: "" });
+          setLoading(false);
+          navigate("/login")
+        }
         await user.user.delete();
+        navigate("/login")
         toast.success("Account Deleted Successfully");
       }
     } catch (error) {
@@ -102,7 +114,7 @@ const Profile = () => {
       toast.error("Failed to delete Profile!!!");
     } finally {
       setOpenPopup({ open: false, poptitle: "" });
-      setLoading(false)
+      setLoading(false);
     }
   };
 
