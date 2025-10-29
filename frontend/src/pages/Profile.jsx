@@ -11,6 +11,9 @@ import { toast } from "react-toastify";
 const Profile = () => {
   const { user, navigate, clerk } = useContext(DiaryContext);
 
+  console.log(user)
+  console.log(clerk)
+
   const [openPopup, setOpenPopup] = useState({ open: false, poptitle: "" });
 
   const [loading, setLoading] = useState(false);
@@ -275,11 +278,11 @@ const Profile = () => {
                 className="p-2 border-2 rounded-sm"
               />
             </label>
-            <div className="flex justify-between">
+            <div className="flex justify-end">
               <button className="px-6 py-2 bg-red-600 text-white" onClick={handleLogout}>
                 Logout
               </button>
-              <button className="px-6 py-2 bg-blue-600 text-white">
+              <button className="px-6 py-2 bg-blue-600 text-white hidden">
                 Update
               </button>
             </div>

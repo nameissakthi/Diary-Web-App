@@ -17,12 +17,10 @@ const DiaryContextProvider = (props) => {
       const isProtectedRoute = protectedRoutes.includes(currentPath) || currentPath.startsWith("/record/");
 
       if (user.isSignedIn) {
-        // If user is signed in and on login page, redirect to home
         if (isLoginPage) {
           navigate("/");
         }
       } else {
-        // If user is not signed in and trying to access protected routes, redirect to login
         if (isProtectedRoute) {
           navigate("/login");
         }

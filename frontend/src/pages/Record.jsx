@@ -12,14 +12,29 @@ const Record = () => {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState({
+    id: 1,
+    title: "HOOOOOOOO",
+    content: "Hi there i am **Sakthivel**",
+    day: "Saturday",
+    date: "26-10-2025",
+    time: "17:25",
+  });
 
   const getData = useCallback(async () => {
 
     setLoading(true)
 
     try {
+      // Simulate API delay (remove this when using real API)
       await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // When you have a real API, replace this with your API call
+      // const response = await fetch(`/api/records/${id}`);
+      // const result = await response.json();
+      // setData(result);
+      
+      console.log("Data loaded successfully")
     } catch (error) {
       console.log("Error will retriving the data", error);
       navigate("/");
@@ -30,7 +45,8 @@ const Record = () => {
   }, [navigate]);
 
   useEffect(() => {
-    getData()
+    // Comment out getData() if you don't want to show loading
+    // getData()
   }, [getData])
 
   return (
