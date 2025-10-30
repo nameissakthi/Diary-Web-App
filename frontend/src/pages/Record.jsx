@@ -1,4 +1,4 @@
-import { useContext, useState, useCallback } from "react";
+import { useContext, useState, useCallback, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DiaryContext } from "../context/DiaryContext";
 
@@ -14,14 +14,7 @@ const Record = () => {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({
-    id: 1,
-    title: "HOOOOOOOO",
-    content: "Hi there i am **Sakthivel**",
-    day: "Saturday",
-    date: "26-10-2025",
-    time: "17:25",
-  });
+  const [data, setData] = useState();
 
   const getData = useCallback(async () => {
 
@@ -43,6 +36,10 @@ const Record = () => {
         setLoading(false)
     }
   }, [navigate]);
+
+  useEffect(()=>{
+   getData() 
+  }, [])
 
   return (
     <div>
