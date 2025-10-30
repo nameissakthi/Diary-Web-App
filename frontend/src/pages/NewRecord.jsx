@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 import DateTime from "../func/DateTime.ts";
 import { toast } from "react-toastify";
 
+import { IoHome } from "react-icons/io5";
+
 const NewRecord = () => {
   const { user } = useContext(DiaryContext);
 
@@ -46,9 +48,12 @@ const NewRecord = () => {
     <div className="mb-10">
       <Header
         children={
-          <div className="flex gap-6 items-center">
-            <div className="text-xl font-bold px-4 py-2 bg-yellow-400 rounded-xl">
-              <Link to={"/"}>Home</Link>
+          <div className="flex gap-1 md:gap-6 items-center">
+            <div className="text-xl font-bold px-4 py-2 bg-none md:bg-yellow-400 rounded-xl">
+              <Link to={"/"}>
+                <span className="hidden md:block md:text-base lg:text-xl">Home</span>
+                <IoHome className="md:hidden text-2xl" />
+              </Link>
             </div>
             <div className="flex items-center gap-2">
               <Link
@@ -61,7 +66,7 @@ const NewRecord = () => {
                 <img
                   src={user.user?.imageUrl}
                   alt="Profile"
-                  className="w-10 h-10 rounded-full"
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-full"
                 />
               </Link>
             </div>
@@ -100,7 +105,7 @@ const NewRecord = () => {
         <div className="flex justify-center mt-4">
           <button
             onClick={save}
-            className="text-xl px-6 py-2 rounded-xl bg-blue-500 text-white font-bold"
+            className="text-xl px-6 py-2 rounded-xl bg-blue-500 text-white font-bold w-full md:w-[20%]"
           >
             Save
           </button>
