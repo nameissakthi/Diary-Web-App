@@ -20,7 +20,7 @@ const Home = () => {
       day : "Saturday"
     },
     {
-      id : 1,
+      id : 2,
       title : "Summa",
       content : "ddfjerbguyrbgrg",
       date : "26-10-2025",
@@ -79,9 +79,10 @@ const Home = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
               {data.map((value) => {
                 return (
-                  <div
+                  <Link
                     key={value.id}
                     className="p-4 rounded-xl shadow-pink-900 shadow-xs min-w-80 lg:min-w-72"
+                    to={`/record/${value.id}`}
                   >
                     <div className="flex flex-col gap-4">
                       <p className="text-2xl text-pink-500">
@@ -98,7 +99,7 @@ const Home = () => {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>

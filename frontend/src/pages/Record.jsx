@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DiaryContext } from "../context/DiaryContext";
 
@@ -6,6 +6,8 @@ import Header from "../components/Header";
 import Loading from "../components/Loading";
 import { MDXEditor } from "@mdxeditor/editor";
 import { toast } from "react-toastify";
+import { IoHome } from "react-icons/io5";
+import { IoMdAddCircle } from "react-icons/io";
 
 const Record = () => {
   const { user, navigate } = useContext(DiaryContext);
@@ -26,10 +28,8 @@ const Record = () => {
     setLoading(true)
 
     try {
-      // Simulate API delay (remove this when using real API)
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // When you have a real API, replace this with your API call
       // const response = await fetch(`/api/records/${id}`);
       // const result = await response.json();
       // setData(result);
@@ -44,21 +44,24 @@ const Record = () => {
     }
   }, [navigate]);
 
-  useEffect(() => {
-    // Comment out getData() if you don't want to show loading
-    // getData()
-  }, [getData])
-
   return (
     <div>
       <Header
         children={
           <div className="flex gap-3 items-center">
-            <div className="text-xl font-bold px-4 py-2 bg-yellow-400 rounded-xl">
-              <Link to={"/"}>Home</Link>
+            <div className="text-xl font-bold md:px-4 md:py-2 bg-none md:bg-yellow-400 rounded-xl">
+              <Link to={"/"}>
+                <span className="hidden md:block md:text-base lg:text-xl">Home</span>
+                <IoHome className="md:hidden text-2xl" />
+              </Link>
             </div>
-            <div className="text-xl font-bold px-4 py-2 bg-yellow-400 rounded-xl">
-              <Link to={"/new-record"}>New Record</Link>
+            <div className="text-xl font-bold md:px-4 md:py-2 bg-none md:bg-yellow-400 rounded-xl">
+              <Link to={"/new-record"}>
+                <span className="hidden md:block md:text-base lg:text-xl">
+                  New Record
+                </span>
+                <IoMdAddCircle className="md:hidden text-2xl" />
+              </Link>
             </div>
             <Link
               className="flex items-center gap-2 cursor-pointer"
@@ -70,7 +73,7 @@ const Record = () => {
               <img
                 src={user.user?.imageUrl}
                 alt="Profile"
-                className="w-10 h-10 rounded-full"
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full"
               />
             </Link>
           </div>
@@ -82,11 +85,11 @@ const Record = () => {
           <Loading />
         ) : data ? (
           <div>
-            <div className="flex justify-between mb-5">
-              <p className="text-5xl font-extralight self-end">{data.title}</p>
-              <p className="flex flex-col">
-                <span className="text-2xl font-extralight">{data.date}</span>
-                <span className="flex gap-2 font-bold">
+            <div className="flex flex-col md:justify-between md:flex-row mb-5">
+              <p className="text-3xl md:text-5xl font-extralight">{data.title}</p>
+              <p className="flex flex-row justify-between md:flex-col">
+                <span className="flex gap-2 font-extralight md:text-xl md:font-bold">{data.date}</span>
+                <span className="flex gap-2 font-extralight">
                   <span>{data.day}</span>
                   <span>{data.time}</span>
                 </span>
@@ -94,7 +97,7 @@ const Record = () => {
             </div>
 
             <div>
-              <MDXEditor key={data.id} markdown={data.content} readOnly={true} plugins={[]} />
+              <MDXEditor key={data.id} markdown={data.content} readOnly={true} plugins={[]} className="border-2" />
             </div>
           </div>
         ) : (
