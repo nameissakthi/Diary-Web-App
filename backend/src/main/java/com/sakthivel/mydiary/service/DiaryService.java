@@ -52,7 +52,7 @@ public class DiaryService {
             return new ResponseEntity<>(new Response<>(true, "Data Stored Successfully"), HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.print(e.getMessage());
-            return new ResponseEntity<>(new Response<>(e.getMessage()), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new Response<>(false, e.getMessage()), HttpStatus.CONFLICT);
         }
     }
 
