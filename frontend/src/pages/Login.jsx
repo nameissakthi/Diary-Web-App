@@ -1,4 +1,3 @@
-import React, { useContext, useEffect } from "react";
 import { SignedOut, SignInButton } from "@clerk/clerk-react";
 import Header from "../components/Header";
 import assets from "../assets/assests";
@@ -10,12 +9,8 @@ import { MdSupervisedUserCircle } from "react-icons/md";
 import { TiStarFullOutline } from "react-icons/ti";
 import { TiStarHalfOutline } from "react-icons/ti";
 import { DiaryContext } from "../context/DiaryContext";
-import { toast } from "react-toastify";
 
 const Login = () => {
-
-  const { user, navigate } = useContext(DiaryContext)
-
   return (
     <div>
       <Header

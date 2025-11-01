@@ -4,13 +4,15 @@ import google_playstore from "./logo/google-playstore.png"
 import logo from "./logo/logo.png"
 import data_backup from "./data-backup.gif"
 import loading from "./loading.gif"
+import dot_loading from "./dot_loading.webm"
 
 const assets = {
     pencil_animation,
     google_playstore,
     logo,
     data_backup,
-    loading
+    loading,
+    dot_loading
 }
 
 export default assets;

@@ -9,12 +9,10 @@ import Loading from "../components/Loading";
 import { toast } from "react-toastify";
 import { IoHome } from "react-icons/io5";
 import { IoMdAddCircle } from "react-icons/io";
+import DotLoading from "../components/DotLoading";
 
 const Profile = () => {
   const { user, navigate, clerk } = useContext(DiaryContext);
-
-  console.log(user);
-  console.log(clerk);
 
   const [openPopup, setOpenPopup] = useState({ open: false, poptitle: "" });
 
@@ -60,7 +58,7 @@ const Profile = () => {
   const ProfileEditContent = () => (
     <div>
       {loading ? (
-        <Loading className={"w-full"} />
+        <DotLoading />
       ) : (
         <div className="flex flex-col gap-4 items-center">
           <h1 className="font-bold text-2xl text-center text-gray-800">
@@ -127,7 +125,7 @@ const Profile = () => {
   const ProfileDleteContent = () => (
     <div>
       {loading ? (
-        <Loading className={"w-full"} />
+        <DotLoading />
       ) : (
         <div>
           <p className="font-bold text-2xl text-center text-gray-800">
@@ -178,7 +176,7 @@ const Profile = () => {
   const ProfileLogoutContent = () => (
     <div>
       {loading ? (
-        <Loading />
+        <DotLoading />
       ) : (
         <div>
           <p className="font-bold text-2xl text-center text-gray-800">

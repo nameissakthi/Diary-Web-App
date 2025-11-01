@@ -1,44 +1,20 @@
-import { useContext, useState, useCallback, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DiaryContext } from "../context/DiaryContext";
 
 import Header from "../components/Header";
-import Loading from "../components/Loading";
 import { MDXEditor } from "@mdxeditor/editor";
-import { toast } from "react-toastify";
 import { IoHome } from "react-icons/io5";
 import { IoMdAddCircle } from "react-icons/io";
+import DotLoading from "../components/DotLoading";
 
 const Record = () => {
-  const { user, navigate } = useContext(DiaryContext);
+  const { user, loading, getSingleDiaryRecord } = useContext(DiaryContext);
   const { id } = useParams();
-
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
 
-  const getData = useCallback(async () => {
-
-    setLoading(true)
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // const response = await fetch(`/api/records/${id}`);
-      // const result = await response.json();
-      // setData(result);
-      
-      console.log("Data loaded successfully")
-    } catch (error) {
-      console.log("Error will retriving the data", error);
-      navigate("/");
-      toast.error("Error while retriving the data!!!");
-    } finally {
-        setLoading(false)
-    }
-  }, [navigate]);
-
-  useEffect(()=>{
-   getData() 
+  useState(()=>{
+    setData(getSingleDiaryRecord(id))
   }, [])
 
   return (
@@ -79,7 +55,7 @@ const Record = () => {
 
       <div className="px-[5%] my-10">
         {loading ? (
-          <Loading />
+          <DotLoading />
         ) : data ? (
           <div>
             <div className="flex flex-col md:justify-between md:flex-row mb-5">
@@ -98,7 +74,7 @@ const Record = () => {
             </div>
           </div>
         ) : (
-          <p className="text-center text-gray-500">No data available</p>
+          <p className="text-center text-gray-500">No data available. Please reload the application.</p>
         )}
       </div>
     </div>

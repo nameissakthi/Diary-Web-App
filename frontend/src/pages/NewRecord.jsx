@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { MDXEditor } from "@mdxeditor/editor";
 import {
@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 import { IoHome } from "react-icons/io5";
 
 const NewRecord = () => {
-  const { user } = useContext(DiaryContext);
+  const { user, saveNewDiaryRecord, navigate } = useContext(DiaryContext);
 
   const [data, setData] = useState({
     title: "",
@@ -27,21 +27,38 @@ const NewRecord = () => {
     day: "",
     date: "",
     time: "",
+    email: ""
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const save = async () => {
+    if (!data.title?.trim()) {
+      toast.error("Please add a title");
+      return;
+    }
+    if (!data.content?.trim()) {
+      toast.error("Please add some content");
+      return;
+    }
 
-  const save = () => {
     const dateTime = new DateTime();
-    setData({
-      ...data,
-      day: dateTime.findDay(),
-      date: dateTime.findDate(),
-      time: dateTime.findTime(),
-    });
-    toast.success("Memory Saved Successfully");
+    const day = dateTime.findDay();
+    const date = dateTime.findDate();
+    const time = dateTime.findTime();
+    const email = user.user?.emailAddresses?.[0]?.emailAddress || "";
+
+    const recordToSave = { ...data, day, date, time, email };
+
+    setData(recordToSave);
+    try {
+      let res = await saveNewDiaryRecord(recordToSave);
+      setData({ title: "", content: "", day: "", date: "", time: "", email: "" });
+      navigate("/")
+      if(res.success)
+        toast.success(res.message)
+    } catch (err) {
+      console.error("Failed to save record", err);
+      toast.error("Error while storing the data")
+    }
   };
 
   return (
