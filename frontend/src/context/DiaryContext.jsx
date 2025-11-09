@@ -46,14 +46,13 @@ const DiaryContextProvider = (props) => {
       if (user.isSignedIn) {
         if (isLoginPage) {
           navigate("/");
-        }
+       }
+       fetchAllRecords()
       } else {
         if (isProtectedRoute) {
           navigate("/login");
         }
       }
-
-      fetchAllRecords()
     }
   }, [user.isLoaded, user.isSignedIn, location.pathname, navigate]);
 
