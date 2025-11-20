@@ -45,7 +45,6 @@ const DiaryContextProvider = (props) => {
   };
 
   useEffect(() => {
-    console.log("Hi")
     if (user.isLoaded) {
       const currentPath = location.pathname;
       const isLoginPage = currentPath === "/login";
