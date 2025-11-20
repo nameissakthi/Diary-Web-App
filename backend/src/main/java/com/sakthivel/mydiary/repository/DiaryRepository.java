@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, Integer> {
     List<Diary> getAllByEmail(String email);
+
+    void deleteAllByEmail(String email);
+
+    List<Diary> findAllByEmail(String email);
 }

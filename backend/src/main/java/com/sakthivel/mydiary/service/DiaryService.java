@@ -23,7 +23,7 @@ public class DiaryService {
     public ResponseEntity<Response<List<Diary>>> getAllRecordsByEmail(String email) {
         List<Diary> diaryList;
         try{
-            diaryList = new ArrayList<>(diaryRepository.getAllByEmail(email));
+            diaryList = diaryRepository.findAllByEmail(email);
             if(diaryList.isEmpty())
                 return new ResponseEntity<>(new Response<>("User has no records"), HttpStatus.NOT_FOUND);
             return new ResponseEntity<>(new Response<>(diaryList), HttpStatus.OK);
@@ -60,6 +60,16 @@ public class DiaryService {
         try {
             diaryRepository.deleteById(id);
             return new ResponseEntity<>(new Response<>(true, "Record Deleted Successfully"), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+            return new ResponseEntity<>(new Response<>(e.getMessage()), HttpStatus.CONFLICT);
+        }
+    }
+
+    public ResponseEntity<Response<Diary>> deleteUserRecordsByEmail(String email) {
+        try {
+            diaryRepository.deleteAllByEmail(email);
+            return new ResponseEntity<>(new Response<>(true, "Records Deleted Successfully"), HttpStatus.OK);
         } catch (Exception e) {
             System.out.print(e.getMessage());
             return new ResponseEntity<>(new Response<>(e.getMessage()), HttpStatus.CONFLICT);

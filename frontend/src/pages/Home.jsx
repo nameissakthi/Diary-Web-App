@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import { DiaryContext } from "../context/DiaryContext";
 
@@ -10,7 +10,12 @@ import WordsFunction from "../func/WordsFunction.ts";
 import DotLoading from "../components/DotLoading.jsx";
 
 const Home = () => {
-  const { user, data, loading } = useContext(DiaryContext);
+  const { user, data, loading, fetchAllRecords } = useContext(DiaryContext);
+
+  useEffect(() => {
+    if(user.isSignedIn)
+      fetchAllRecords()
+  }, [])
 
   return (
     <div>
@@ -70,7 +75,7 @@ const Home = () => {
           <DotLoading />
         ) : (
           <div>
-            {data.length != 0 ? (
+            {data!=null && data.length != 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                 {data.map((value) => {
                   return (

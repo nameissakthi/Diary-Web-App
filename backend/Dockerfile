@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk
+FROM openjdk:26-ea-slim
 LABEL authors="sakthivel"
 
 WORKDIR /app
